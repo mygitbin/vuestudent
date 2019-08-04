@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        .wrap {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background: lime;
+            color: white;
+        }
+        .fadein {
+            animation: animate_in .25s;
+        }
+        
+        .fadeout {
+            animation: animate_out .25s;
+        }
+
+        @keyframes animate_in {
+            0% {
+                opacity: 0;
+                top: 25%;
+            }
+
+            100% {
+                opacity: 1;
+                top: 10%;
+            }
+        }
+
+        @keyframes animate_out {
+            0% {
+                opacity: 1;
+               
+            }
+
+            100% {
+                opacity: 0;
+    
+            }
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <button>弹窗</button>
+    <script>
+        const btn = document.getElementsByTagName("button")[0]
+        btn.onclick = function () {
+            const app = new Vue({
+                el: document.createElement("div"),
+                template: `<div class="wrap" v-if="over" :class="{fadein: showWrap, fadeout: !showWrap}">
+                     修改成功
+                   </div>`,
+                data: {
+                    showWrap: true,
+                    over: true
+                }
+            })
+            document.body.appendChild(app.$el)
+            setTimeout(() => {
+                 app.showWrap = false
+            }, 1000)
+            setTimeout(() => {
+                 app.over = false
+            }, 1200)
+
+        }
+        
+
+    </script>
+</body>
+
+</html>
